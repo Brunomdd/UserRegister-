@@ -12,3 +12,18 @@ conexao = mysql.connector.connect(
 
 # Cria um cursor, que é um objeto usado para executar comandos SQL e recuperar resultados do banco de dados
 cursor = conexao.cursor()
+
+# Executa o comando SQL para criar uma tabela 'users' no banco de dados
+cursor.execute('''
+    CREATE TABLE users (
+    id int auto_increment not null,
+    nome varchar(100),
+    email varchar(100),
+    senha varchar(100),
+    primary key (id)
+    )default charset = utf8;
+''')
+print('*=*=*' * 5)  # Para adicionar uma linha antes
+print(' CADASTRO USUÁRIOS ', end='')  # Para imprimir sem quebra de linha
+print('*=*=*' * 5)  # Para adicionar uma linha depois
+
