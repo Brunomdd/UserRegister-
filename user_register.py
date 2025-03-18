@@ -26,4 +26,15 @@ cursor.execute('''
 print('*=*=*' * 5)  # Para adicionar uma linha antes
 print(' CADASTRO USUÁRIOS ', end='')  # Para imprimir sem quebra de linha
 print('*=*=*' * 5)  # Para adicionar uma linha depois
+nome = input("Digite o nome: ")
+email = input("Digite o email: ")
+senha  = input("Digite a senha: ")
+
+# Insere os dados fornecidos pelo usuário (nome, email, senha) na tabela 'users'
+cursor.execute("INSERT INTO users (nome,email,senha) VALUES (%s,%s,%s)",(nome,email,senha))
+
+# Confirma a inserção dos dados no banco de dados
+conexao.commit()
+# Exibe uma mensagem informando que o cadastro foi realizado com sucesso
+print("Usuário Cadastrado com sucesso!")
 
