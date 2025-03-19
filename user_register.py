@@ -18,7 +18,7 @@ cursor.execute('''
     CREATE TABLE users (
     id int auto_increment not null,
     nome varchar(100),
-    email varchar(100),
+    email varchar(100) UNIQUE,
     senha varchar(100),
     primary key (id)
     )default charset = utf8;
@@ -38,3 +38,24 @@ conexao.commit()
 # Exibe uma mensagem informando que o cadastro foi realizado com sucesso
 print("Usuário Cadastrado com sucesso!")
 
+# Imprime uma mensagem para indicar que a lista de usuários será exibida
+print("\nListas usuários")
+
+# Executa a consulta SQL para selecionar todos os registros da tabela 'users
+cursor.execute("SELECT * FROM users")
+
+# Obtém todos os registros retornados pela consulta e armazena em 'usuarios'
+
+usuarios = cursor.fetchall()
+
+# Laço que percorre cada tupla na lista de 'usuarios'
+
+for usuario in usuarios:
+    # Exibe cada tupla (registro) do usuário no console
+
+    print(usuario)
+# Fecha o cursor, liberando os recursos do banco de dados
+
+cursor.close()
+# Fecha a conexão com o banco de dados, liberando os recursos
+conexao.close()
