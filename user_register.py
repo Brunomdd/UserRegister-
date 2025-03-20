@@ -1,5 +1,6 @@
 # Importa a biblioteca mysql.connector, que permite conectar o Python ao MySQL
 import mysql.connector
+import bcrypt
 
 # Estabelece a conexão com o banco de dados MySQL
 # A função connect() é usada para criar uma conexão com o servidor MySQL
@@ -19,7 +20,7 @@ cursor.execute('''
     id int auto_increment not null,
     nome varchar(100),
     email varchar(100) UNIQUE,
-    senha varchar(100),
+    senha varchar(255),
     primary key (id)
     )default charset = utf8;
 ''')
@@ -30,8 +31,12 @@ nome = input("Digite o nome: ")
 email = input("Digite o email: ")
 senha  = input("Digite a senha: ")
 
+# Gerar hash da senha corretamente
+salt = bcrypt.gensalt()
+senha_hash = bcrypt.hashpw(senha.encode('utf-8'), salt)
+
 # Insere os dados fornecidos pelo usuário (nome, email, senha) na tabela 'users'
-cursor.execute("INSERT INTO users (nome,email,senha) VALUES (%s,%s,%s)",(nome,email,senha))
+cursor.execute("INSERT INTO users (nome,email,senha) VALUES (%s,%s,%s)",(nome,email,senha_hash))
 
 # Confirma a inserção dos dados no banco de dados
 conexao.commit()
